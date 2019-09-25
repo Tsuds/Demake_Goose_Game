@@ -22,16 +22,17 @@ public class Player : MonoBehaviour, GeneralInputs.IPlayerActions
     void OnDisable()
     {
         controls.Player.Disable();
-        Debug.Log("<color=green>Disabled controller</color>");
+        Debug.Log("<color=red>Disabled controller</color>");
     }
 
     public void OnHonk(InputAction.CallbackContext context)
     {
+		Debug.Log(context.ReadValue<float>());
         Debug.Log("<color=red>HONK!</color>");
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Moving");
     }
 }
