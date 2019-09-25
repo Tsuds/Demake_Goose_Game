@@ -27,12 +27,21 @@ public class Player : MonoBehaviour, GeneralInputs.IPlayerActions
 
     public void OnHonk(InputAction.CallbackContext context)
     {
-		Debug.Log(context.ReadValue<float>());
-        Debug.Log("<color=red>HONK!</color>");
+        Debug.Log("<color=cyan>HONK!</color>");
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Moving");
+        Vector2 direction = context.ReadValue<Vector2>();
+
+        if(direction == new Vector2(-1.0f,0.0f))
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if(direction == new Vector2(1.0f,0.0f))
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        transform.position += new Vector3(direction.x, direction.y, 0);
     }
 }
