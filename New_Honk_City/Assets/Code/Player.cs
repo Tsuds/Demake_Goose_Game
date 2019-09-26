@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float movement_speed = 4.0f;
+    [SerializeField] private float movement_speed = 4.0f;
+    [SerializeField] private AudioSource honk_sfx;
 
     private GameObject honk;
 
@@ -28,6 +29,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             OnHonk();
+            if (honk_sfx)
+            {
+                honk_sfx.Play();
+            }
             has_honked = true;
         }
         if(has_honked)
