@@ -1,47 +1,86 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour, GeneralInputs.IPlayerActions
+public class Player : MonoBehaviour
 {
-    private GeneralInputs controls;
+    private float movement_speed = 4.0f;
 
-    void Awake()
+    private GameObject honk;
+
+    private float honk_timer = 0.0f;
+    private bool has_honked = false;
+
+    private void Awake()
     {
-        controls = new GeneralInputs();
-        controls.Player.SetCallbacks(this);
+        foreach(Transform child in GetComponentInChildren<Transform>())
+        {
+            if(child.name == "Honk")
+            {
+                honk = child.gameObject;
+                honk.SetActive(false);
+            }
+        }
     }
-
-    void OnEnable()
+    private void Update()
     {
-        controls.Player.Enable();
-        Debug.Log("<color=green>Enabled controller</color>");
+        Movement();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnHonk();
+            has_honked = true;
+        }
+        if(has_honked)
+        {
+            honk_timer += Time.deltaTime;
+            if(honk_timer > 0.5f)
+            {
+                honk_timer = 0.0f;
+                honk.SetActive(false);
+                has_honked = false;
+            }
+        }
+        if(honk.activeInHierarchy)
+        {
+            SpriteRenderer this_sr = GetComponent<SpriteRenderer>();
+            honk.GetComponent<SpriteRenderer>().flipX = this_sr.flipX;
+        }
     }
-
-    void OnDisable()
+    public void OnHonk()
     {
-        controls.Player.Disable();
-        Debug.Log("<color=red>Disabled controller</color>");
-    }
-
-    public void OnHonk(InputAction.CallbackContext context)
-    {
+        honk.SetActive(true);
         Debug.Log("<color=cyan>HONK!</color>");
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    private void Movement()
     {
-        Vector2 direction = context.ReadValue<Vector2>();
+        float new_x = transform.position.x;
+        float new_y = transform.position.y;
 
-        if(direction == new Vector2(-1.0f,0.0f))
+        Vector3 honk_position = honk.transform.localPosition;
+
+        if (Input.GetKey(KeyCode.W))
         {
+            new_y += movement_speed * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            new_y -= movement_speed * Time.deltaTime;
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            new_x -= movement_speed * Time.deltaTime;
             GetComponent<SpriteRenderer>().flipX = false;
+            honk_position.x = -0.468f;
         }
-        else if(direction == new Vector2(1.0f,0.0f))
+        else if (Input.GetKey(KeyCode.D))
         {
+            new_x += movement_speed * Time.deltaTime;
             GetComponent<SpriteRenderer>().flipX = true;
+            honk_position.x = 0.468f;
         }
-        transform.position += new Vector3(direction.x, direction.y, 0);
+        transform.position = new Vector3(new_x, new_y, transform.position.z);
+        honk.transform.localPosition = honk_position;
     }
+
 }
