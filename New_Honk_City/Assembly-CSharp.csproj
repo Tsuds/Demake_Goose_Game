@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ItemBehaviour.cs" />
+    <Compile Include="Assets\Scripts\ItemDatabase.cs" />
     <Compile Include="Assets\Scripts\Items.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

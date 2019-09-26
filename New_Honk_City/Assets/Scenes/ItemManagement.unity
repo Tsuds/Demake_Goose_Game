@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 298429728}
   - component: {fileID: 298429727}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,10 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b71b02749b0484fabcad1f63aaab92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
-  ItemName: ITEM
-  NPCName: 
   honk: 0
+  cooldown: 0
+  time: 50
 --- !u!212 &298429728
 SpriteRenderer:
   m_ObjectHideFlags: 0

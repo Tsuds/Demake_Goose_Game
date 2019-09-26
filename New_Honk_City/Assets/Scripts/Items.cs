@@ -3,30 +3,28 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class Items : MonoBehaviour
+public class Items
 {
-    
-    Dictionary<string, string> NPC = new Dictionary<string, string>();
-    public Dictionary<string, string> Item = new Dictionary<string, string>();
 
-    private void Start()
+    public int id;
+    public string name;
+    public Sprite icon;
+
+    Dictionary<string, int> NPC = new Dictionary<string, int>();
+    public Dictionary<string, string> stats = new Dictionary<string, string>();
+
+    public Items(int id, string name, Dictionary<string, int> stats)
     {
-        Item.Add("Key", "NPC1");
-        Item.Add("Rake", "NPC1");
-        Item.Add("", "");
-        Item.Add("", "");
-        Item.Add("", "");
-        Item.Add("", "");
-        Item.Add("", "");
-        Item.Add("", "");
+        this.id = id;
+        this.name = name;
+        this.icon = Resources.Load<Sprite>("" + name);
     }
 
-    private void Update()
+    public Items(Items item)
     {
-        foreach(KeyValuePair<string, string> keyValue in Item)
-        {
-
-        }
+        this.id = item.id;
+        this.name = item.name;
+        this.icon = Resources.Load<Sprite>("" + item.name);
     }
 
 }
