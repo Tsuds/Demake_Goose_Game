@@ -6,16 +6,14 @@ public class ItemBehaviour : MonoBehaviour
 {
     public bool honk = false;
     public bool cooldown = false;
-    public float time = 50;
+    public float time;
 
-    // Start is called before the first frame update
     void Start()
     {        
         honk = false;
         cooldown = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
      if (honk == true)
@@ -23,7 +21,7 @@ public class ItemBehaviour : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 this.transform.parent = null;
-                time = 50;
+                time = 1.5f;
                 CountDown();
                 honk = false;
             }
@@ -31,18 +29,22 @@ public class ItemBehaviour : MonoBehaviour
         timeCheck();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (cooldown == false)
         {
-            honk = true;
-            this.transform.parent = other.transform;
+            if (other.gameObject.tag == "Player")
+            {            
+                honk = true;
+                this.transform.parent = other.transform;
+            }
         }
     }
 
     void CountDown()
-    {     
+    {
         time -= Time.deltaTime;
+        cooldown = true;
     }
 
     void timeCheck()
@@ -56,5 +58,5 @@ public class ItemBehaviour : MonoBehaviour
             cooldown = true;
         }
     }
-
+//http://docs.unity3d.com/Documentation/ScriptReference/Collider.OnTriggerEnter.html?_ga=2.99166366.1045234588.1569588832-344143463.1569588832
 }
