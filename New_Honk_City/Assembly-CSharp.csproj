@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\NPC Scripts\NPC_IdleBehaviour.cs" />
     <Compile Include="Assets\Scripts\NPC Scripts\NPC_StateManager.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Uni Work/YEAR 3/REPOS/CGD/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
