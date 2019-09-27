@@ -269,3 +269,5 @@ D:\Uni Work\YEAR 3\REPOS\CGD\Demake_Goose_Game\New_Honk_City\obj\Debug\Assembly-
 D:\Uni Work\YEAR 3\REPOS\CGD\Demake_Goose_Game\New_Honk_City\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Uni Work\YEAR 3\REPOS\CGD\Demake_Goose_Game\New_Honk_City\obj\Debug\Assembly-CSharp.dll
 D:\Uni Work\YEAR 3\REPOS\CGD\Demake_Goose_Game\New_Honk_City\obj\Debug\Assembly-CSharp.pdb
+D:\Uni Work\YEAR 3\REPOS\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.InputSystem.dll
+D:\Uni Work\YEAR 3\REPOS\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.InputSystem.pdb

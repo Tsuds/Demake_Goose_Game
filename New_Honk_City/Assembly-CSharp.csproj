@@ -63,13 +63,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Code\Player.cs" />
-    <Compile Include="Assets\Scripts\NPC Scripts\NPC_IdleBehaviour.cs" />
+    <Compile Include="Assets\Scripts\NPC Scripts\NPC_Behaviours.cs" />
     <Compile Include="Assets\Scripts\NPC Scripts\NPC_StateManager.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Uni Work/YEAR 3/REPOS/CGD/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:/Uni Work/YEAR 3/REPOS/CGD/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>D:/Uni Work/YEAR 3/REPOS/CGD/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Uni Work/YEAR 3/REPOS/CGD/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -97,9 +100,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Uni Work/YEAR 3/REPOS/CGD/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>D:/Uni Work/YEAR 3/REPOS/CGD/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
