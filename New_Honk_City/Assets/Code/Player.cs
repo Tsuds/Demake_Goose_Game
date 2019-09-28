@@ -8,9 +8,12 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource honk_sfx;
 
     private GameObject honk;
+    public GameObject itemHolder;
 
     private float honk_timer = 0.0f;
     private bool has_honked = false;
+
+    public bool itemHeld = false;
 
     private void Awake()
     {
@@ -63,6 +66,7 @@ public class Player : MonoBehaviour
         float new_y = transform.position.y;
 
         Vector3 honk_position = honk.transform.localPosition;
+        Vector3 item_position = itemHolder.transform.localPosition;
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -77,15 +81,18 @@ public class Player : MonoBehaviour
             new_x -= movement_speed * Time.deltaTime;
             GetComponent<SpriteRenderer>().flipX = false;
             honk_position.x = -0.468f;
+            item_position.x = -0.468f;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             new_x += movement_speed * Time.deltaTime;
             GetComponent<SpriteRenderer>().flipX = true;
             honk_position.x = 0.468f;
+            item_position.x = 0.468f;
         }
         transform.position = new Vector3(new_x, new_y, transform.position.z);
         honk.transform.localPosition = honk_position;
+        itemHolder.transform.localPosition = item_position;
     }
 
 }
