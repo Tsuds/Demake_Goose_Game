@@ -61,6 +61,9 @@ public class NPC_Behaviours : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position, points[destPoint].position, speed * Time.deltaTime);
 
+        Vector3 heading = points[destPoint].position - transform.position;
+        direction = heading / heading.magnitude;
+
         if (Vector2.Distance(transform.position, points[destPoint].position) < 0.2f)
         {
             newPoint = false;
@@ -90,6 +93,7 @@ public class NPC_Behaviours : MonoBehaviour
 
     }
 
+    //move in the flee direction (away from player)
     void FleeBehaviour()
     {
         transform.position += direction * 2.0f * Time.deltaTime;
@@ -103,11 +107,13 @@ public class NPC_Behaviours : MonoBehaviour
         }
     }
 
+    //run towards item and put return it to it's origin
     void ChaseBehaviour()
     {
 
     }
 
+    //return to origin point and change state to idle
     void ReturnToIdleBehaviour()
     {
 
@@ -116,5 +122,17 @@ public class NPC_Behaviours : MonoBehaviour
     public void SetDirection(Vector2 newDirection)
     {
         direction = newDirection;
+    }
+
+    private void LateUpdate()
+    {
+        if(direction.x > 0 && !gameObject.GetComponent<SpriteRenderer>().flipX)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (direction.x < 0 && gameObject.GetComponent<SpriteRenderer>().flipX)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
     }
 }

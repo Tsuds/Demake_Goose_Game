@@ -11,7 +11,7 @@ public class NPC_StateManager : MonoBehaviour
 {
     //How I planned to have items associated with NPCs
     //drag item into public variable
-    public Sprite item;
+    public GameObject item;
 
     //state enum so can check/change state value for appropriate
     //state scripts
@@ -31,16 +31,32 @@ public class NPC_StateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        //if NPCs item has been taken see if it is within their view
+        //if in their line of sight set state to chase
+        if(item.GetComponent<ItemBehaviour>().items.ItemHeld)
+        {
+            Vector3 heading = item.transform.position - transform.position;
+            Vector3 direction = heading / heading.magnitude;
+
+            if (Vector3.Angle(transform.right, direction) > 45.0f)
+            {
+                SetState(State.chase);
+                Debug.Log("chase");
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.name == "Honk")
+        //if the honk's hitbox is colliding set state to flee
+        if(col.gameObject.name == "Honk" && currentState == State.idle ||
+            currentState == State.alert)
         {
             SetState(State.flee);
             Debug.Log("flee");
@@ -49,7 +65,6 @@ public class NPC_StateManager : MonoBehaviour
             Vector3 direction = heading / heading.magnitude;
 
             gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
-
         }
     }
 
