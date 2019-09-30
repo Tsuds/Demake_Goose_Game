@@ -12,6 +12,8 @@ public class NPC_StateManager : MonoBehaviour
     //How I planned to have items associated with NPCs
     //drag item into public variable
     public GameObject item;
+    public Vector3 itemStartPos;
+    public Vector3 startPos;
 
     //state enum so can check/change state value for appropriate
     //state scripts
@@ -31,7 +33,8 @@ public class NPC_StateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        itemStartPos = item.transform.position;
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -39,15 +42,28 @@ public class NPC_StateManager : MonoBehaviour
     {
         //if NPCs item has been taken see if it is within their view
         //if in their line of sight set state to chase
-        if(item.GetComponent<ItemBehaviour>().items.ItemHeld)
+        if (currentState != State.chase)
         {
-            Vector3 heading = item.transform.position - transform.position;
-            Vector3 direction = heading / heading.magnitude;
-
-            if (Vector3.Angle(transform.right, direction) > 45.0f)
+            if (item.GetComponent<ItemBehaviour>().items.ItemHeld)
             {
-                SetState(State.chase);
-                Debug.Log("chase");
+                Vector3 heading = item.transform.position - transform.position;
+                Vector3 direction = heading / heading.magnitude;
+
+                Vector3 forward;
+
+                if (gameObject.GetComponent<SpriteRenderer>().flipX)
+                {
+                    forward = transform.right;
+                }
+                else
+                {
+                    forward = -transform.right;
+                }
+                if (Vector3.Angle(forward, direction) < 45.0f)
+                {
+                    SetState(State.chase);
+                    Debug.Log("chase");
+                }
             }
         }
     }
@@ -65,6 +81,14 @@ public class NPC_StateManager : MonoBehaviour
             Vector3 direction = heading / heading.magnitude;
 
             gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
+        }
+
+        //if chasing player and collides, stun and return
+        if(currentState == State.chase && col.gameObject.tag == "Player")
+        {
+            Debug.Log("stun");
+            col.gameObject.GetComponent<Player>().stunned = true;
+            item.GetComponent<ItemBehaviour>().NPCTakesItem(true);
         }
     }
 

@@ -50,29 +50,45 @@ public class ItemBehaviour : MonoBehaviour
                 items.ItemHeld = true;
             }
         }
-
-        if (other.gameObject.tag == "NPC")
+        else if(other.gameObject.tag == "NPC" && items.ItemHeld)
         {
-            //if (items.ItemHeld == false)
-            //{
-            //    this.transform.parent = null;
-            //    this.transform.parent = hand.transform;
-            //}
-            //else
-            if (items.ItemHeld)
-            {
-                this.transform.parent = hand.transform;
-                cooldown = false;
-                items.ItemHeld = false;
-
-                transform.localPosition = new Vector2(0, 0);
-            }
-            //transform.localPosition = new Vector2(0, 0);
+            Debug.Log("stun");
+            FindObjectOfType<Player>().stunned = true;
+            NPCTakesItem(true);
         }
+
+        //if (other.gameObject.tag == "NPC")
+        //{
+        //    //if (items.ItemHeld == false)
+        //    //{
+        //    //    this.transform.parent = null;
+        //    //    this.transform.parent = hand.transform;
+        //    //}
+        //    //else
+        //    if (items.ItemHeld)
+        //    {
+        //        NPCTakesItem();
+        //    }
+        //    //transform.localPosition = new Vector2(0, 0);
+        //}
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         cooldown = false;
+    }
+
+    public void NPCTakesItem(bool pickingUp)
+    {
+        items.ItemHeld = false;
+        items.NPCHeld = pickingUp;
+        cooldown = false;
+        this.transform.parent = null;
+
+        if (pickingUp)
+        {
+            this.transform.parent = hand.transform;
+            transform.localPosition = new Vector2(0, 0);
+        }
     }
 }

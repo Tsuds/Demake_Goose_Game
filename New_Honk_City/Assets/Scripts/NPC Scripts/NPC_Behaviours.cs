@@ -59,7 +59,8 @@ public class NPC_Behaviours : MonoBehaviour
 
     void IdleBehaviour()
     {
-        transform.position = Vector2.MoveTowards(transform.position, points[destPoint].position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, 
+            points[destPoint].position, speed * Time.deltaTime);
 
         Vector3 heading = points[destPoint].position - transform.position;
         direction = heading / heading.magnitude;
@@ -107,16 +108,47 @@ public class NPC_Behaviours : MonoBehaviour
         }
     }
 
-    //run towards item and put return it to it's origin
+    //run towards item and return it to it's origin
     void ChaseBehaviour()
     {
+        if (stateManager.item.GetComponent<ItemBehaviour>().items.ItemHeld)
+        {
+            transform.position = Vector2.MoveTowards(transform.position,
+            stateManager.item.transform.position, speed * Time.deltaTime);
+
+            Vector3 heading = stateManager.item.transform.position - transform.position;
+            direction = heading / heading.magnitude;
+        }
+        else if(stateManager.item.GetComponent<ItemBehaviour>().items.NPCHeld)
+        {
+            transform.position = Vector2.MoveTowards(transform.position,
+           stateManager.itemStartPos, speed * Time.deltaTime);
+
+            Vector3 heading = stateManager.itemStartPos - transform.position;
+            direction = heading / heading.magnitude;
+
+            if (Vector2.Distance(transform.position, stateManager.itemStartPos) < 0.2f)
+            {
+                stateManager.item.GetComponent<ItemBehaviour>().NPCTakesItem(false);
+                stateManager.SetState(NPC_StateManager.State.returnToIdle);
+            }
+        }
 
     }
 
     //return to origin point and change state to idle
     void ReturnToIdleBehaviour()
     {
+        transform.position = Vector2.MoveTowards(transform.position,
+           stateManager.startPos, speed * Time.deltaTime);
 
+        Vector3 heading = stateManager.startPos - transform.position;
+        direction = heading / heading.magnitude;
+
+        if (Vector2.Distance(transform.position, stateManager.startPos) < 0.2f)
+        {
+            stateManager.SetState(NPC_StateManager.State.idle);
+        }
     }
 
     public void SetDirection(Vector2 newDirection)

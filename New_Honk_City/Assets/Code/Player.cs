@@ -15,6 +15,11 @@ public class Player : MonoBehaviour
 
     public bool itemHeld = false;
 
+    private float stunTimer = 1.5f;
+    public bool stunned = false;
+
+    private GameObject stunEffect;
+
     private void Awake()
     {
         foreach(Transform child in GetComponentInChildren<Transform>())
@@ -24,34 +29,64 @@ public class Player : MonoBehaviour
                 honk = child.gameObject;
                 honk.SetActive(false);
             }
+            else if (child.name == "StunEffect")
+            {
+                stunEffect = child.gameObject;
+                stunEffect.SetActive(false);
+            }
         }
     }
     private void Update()
-    {
-        Movement();
-        if (Input.GetKeyDown(KeyCode.Space))
+    {        
+        if (stunned)
         {
-            OnHonk();
-            if (honk_sfx)
+            if(!stunEffect.activeSelf)
             {
-                honk_sfx.Play();
+                if (GetComponent<SpriteRenderer>().flipX)
+                {
+                    stunEffect.transform.localPosition = new Vector2(0.115f,0.5f);
+                }
+                else
+                {
+                    stunEffect.transform.localPosition = new Vector2(-0.115f, 0.5f);
+                }
+                stunEffect.SetActive(true);
             }
-            has_honked = true;
-        }
-        if(has_honked)
-        {
-            honk_timer += Time.deltaTime;
-            if(honk_timer > 0.5f)
+            stunTimer -= Time.deltaTime;
+            if (stunTimer <= 0.0f)
             {
-                honk_timer = 0.0f;
-                honk.SetActive(false);
-                has_honked = false;
+                stunned = false;
+                stunTimer = 1.5f;
+                stunEffect.SetActive(false);
             }
         }
-        if(honk.activeInHierarchy)
+        else
         {
-            SpriteRenderer this_sr = GetComponent<SpriteRenderer>();
-            honk.GetComponent<SpriteRenderer>().flipX = this_sr.flipX;
+            Movement();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                OnHonk();
+                if (honk_sfx)
+                {
+                    honk_sfx.Play();
+                }
+                has_honked = true;
+            }
+            if (has_honked)
+            {
+                honk_timer += Time.deltaTime;
+                if (honk_timer > 0.5f)
+                {
+                    honk_timer = 0.0f;
+                    honk.SetActive(false);
+                    has_honked = false;
+                }
+            }
+            if (honk.activeInHierarchy)
+            {
+                SpriteRenderer this_sr = GetComponent<SpriteRenderer>();
+                honk.GetComponent<SpriteRenderer>().flipX = this_sr.flipX;
+            }
         }
     }
     public void OnHonk()
@@ -94,5 +129,4 @@ public class Player : MonoBehaviour
         honk.transform.localPosition = honk_position;
         itemHolder.transform.localPosition = item_position;
     }
-
 }
