@@ -50,10 +50,15 @@ public class ItemBehaviour : MonoBehaviour
                 items.ItemHeld = true;
             }
         }
-        else if(other.gameObject.tag == "NPC" && items.ItemHeld)
+        if(other.gameObject.tag == "NPC" && 
+            other.gameObject.GetComponent<NPC_StateManager>().GetState() 
+            == NPC_StateManager.State.chase)
         {
-            Debug.Log("stun");
-            FindObjectOfType<Player>().stunned = true;
+            if(items.ItemHeld)
+            {
+                Debug.Log("stun");
+                FindObjectOfType<Player>().stunned = true;
+            }
             NPCTakesItem(true);
         }
 

@@ -111,20 +111,19 @@ public class NPC_Behaviours : MonoBehaviour
     //run towards item and return it to it's origin
     void ChaseBehaviour()
     {
-        if (stateManager.item.GetComponent<ItemBehaviour>().items.ItemHeld)
-        {
+        
             transform.position = Vector2.MoveTowards(transform.position,
             stateManager.item.transform.position, speed * Time.deltaTime);
 
             Vector3 heading = stateManager.item.transform.position - transform.position;
             direction = heading / heading.magnitude;
-        }
-        else if(stateManager.item.GetComponent<ItemBehaviour>().items.NPCHeld)
+        
+        if(stateManager.item.GetComponent<ItemBehaviour>().items.NPCHeld)
         {
             transform.position = Vector2.MoveTowards(transform.position,
            stateManager.itemStartPos, speed * Time.deltaTime);
 
-            Vector3 heading = stateManager.itemStartPos - transform.position;
+            heading = stateManager.itemStartPos - transform.position;
             direction = heading / heading.magnitude;
 
             if (Vector2.Distance(transform.position, stateManager.itemStartPos) < 0.2f)
