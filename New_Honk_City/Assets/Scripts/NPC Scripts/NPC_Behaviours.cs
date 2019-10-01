@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NPC_Behaviours : MonoBehaviour
 {
@@ -8,6 +6,8 @@ public class NPC_Behaviours : MonoBehaviour
 
     private Vector3 direction;
     private float timer = 1.0f;
+
+    public Vector3 lastKnownLocation;
 
     public float speed;
 
@@ -94,7 +94,7 @@ public class NPC_Behaviours : MonoBehaviour
 
     }
 
-    //move in the flee direction (away from player)
+    //move in the flee direction (away from player) for set time
     void FleeBehaviour()
     {
         transform.position += direction * 2.0f * Time.deltaTime;
@@ -110,14 +110,20 @@ public class NPC_Behaviours : MonoBehaviour
 
     //run towards item and return it to it's origin
     void ChaseBehaviour()
-    {
-        
-            transform.position = Vector2.MoveTowards(transform.position,
-            stateManager.item.transform.position, speed * Time.deltaTime);
+    {        
+        transform.position = Vector2.MoveTowards(transform.position,
+        stateManager.item.transform.position, speed * Time.deltaTime);
 
-            Vector3 heading = stateManager.item.transform.position - transform.position;
-            direction = heading / heading.magnitude;
+        Vector3 heading = stateManager.item.transform.position - transform.position;
+        direction = heading / heading.magnitude;
+
+        //if(Vector2.Distance(stateManager.itemStartPos, transform.position) < 
+        //    stateManager.returnDistance)
+        //{
+        //    stateManager.SetState(NPC_StateManager.State.alert);
+        //}
         
+        //once NPC is holding the item, return it to it's origin, drop, return to idle
         if(stateManager.item.GetComponent<ItemBehaviour>().items.NPCHeld)
         {
             transform.position = Vector2.MoveTowards(transform.position,
@@ -150,11 +156,13 @@ public class NPC_Behaviours : MonoBehaviour
         }
     }
 
+    //sets direction NPC is moving to/facing
     public void SetDirection(Vector2 newDirection)
     {
         direction = newDirection;
     }
 
+    //flips the NPC to face the correct direction
     private void LateUpdate()
     {
         if(direction.x > 0 && !gameObject.GetComponent<SpriteRenderer>().flipX)

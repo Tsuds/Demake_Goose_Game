@@ -50,10 +50,12 @@ public class ItemBehaviour : MonoBehaviour
                 items.ItemHeld = true;
             }
         }
+        //if NPC collides and is chasing, take item
         if(other.gameObject.tag == "NPC" && 
             other.gameObject.GetComponent<NPC_StateManager>().GetState() 
             == NPC_StateManager.State.chase)
         {
+            //if Player is holding item, stun player
             if(items.ItemHeld)
             {
                 Debug.Log("stun");
@@ -83,6 +85,7 @@ public class ItemBehaviour : MonoBehaviour
         cooldown = false;
     }
 
+    //Set properties so NPC is carrying item and player is not
     public void NPCTakesItem(bool pickingUp)
     {
         items.ItemHeld = false;

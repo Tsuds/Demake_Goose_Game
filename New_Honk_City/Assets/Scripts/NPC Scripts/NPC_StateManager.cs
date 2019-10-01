@@ -28,7 +28,7 @@ public class NPC_StateManager : MonoBehaviour
     private State currentState = State.idle;
 
     //max distance NPC will travel before returning to idle
-    private int returnDistance = 5;
+    public int returnDistance = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +59,8 @@ public class NPC_StateManager : MonoBehaviour
                 {
                     forward = -transform.right;
                 }
-                if (Vector3.Angle(forward, direction) < 45.0f)
+                if (currentState != State.chase &&
+                    Vector3.Angle(forward, direction) < 45.0f)
                 {
                     SetState(State.chase);
                     Debug.Log("chase");
@@ -70,23 +71,36 @@ public class NPC_StateManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        //if the honk's hitbox is colliding set state to flee
-        if(col.gameObject.name == "Honk" && currentState == State.idle ||
-            currentState == State.alert)
+        if(currentState == State.idle || currentState == State.alert)
         {
-            SetState(State.flee);
-            Debug.Log("flee");
+            //if in honk radius set to alert
+            if (col.gameObject.name == "Honk Radius")
+            {
+                SetState(State.alert);
 
-            Vector3 heading = transform.position - col.gameObject.transform.position;
-            Vector3 direction = heading / heading.magnitude;
+                Vector3 heading = col.gameObject.transform.position - transform.position;
+                Vector3 direction = heading / heading.magnitude;
 
-            gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
+                gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
+
+                gameObject.GetComponent<NPC_Behaviours>().lastKnownLocation = col.gameObject.transform.position;
+                Debug.Log("alert");
+            }
+            //if in honk collider set to flee
+            else if (col.gameObject.name == "Honk")
+            {
+                SetState(State.flee);
+
+                Vector3 heading = transform.position - col.gameObject.transform.position;
+                Vector3 direction = heading / heading.magnitude;
+
+                gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
+            }
         }
 
         //if chasing player and collides, stun and return
         if(currentState == State.chase && col.gameObject.tag == "Player")
         {
-            Debug.Log("stun");
             col.gameObject.GetComponent<Player>().stunned = true;
             item.GetComponent<ItemBehaviour>().NPCTakesItem(true);
         }
