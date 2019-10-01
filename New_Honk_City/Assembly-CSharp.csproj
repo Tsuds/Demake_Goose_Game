@@ -62,7 +62,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CameraFollow.cs" />
     <Compile Include="Assets\Code\Player.cs" />
+    <Compile Include="Assets\GameHandler.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>F:/3rd Year/CGD (Commercial Games Development)/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
