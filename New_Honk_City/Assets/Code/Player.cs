@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float movement_speed = 130.0f;
     [SerializeField] private AudioSource honk_sfx;
 
+    enum eDirection { NONE = 0, HORIZONTAL = 1, VERTICAL = 2 }
+
+    private eDirection dir = eDirection.NONE;
+
     private GameObject honk;
 
     private float honk_timer = 0.0f;
@@ -25,6 +29,8 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        Movement();
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             OnHonk();
@@ -50,10 +56,6 @@ public class Player : MonoBehaviour
             honk.GetComponent<SpriteRenderer>().flipX = this_sr.flipX;
         }
     }
-    private void FixedUpdate()
-    {
-        Movement();
-    }
 
     public void OnHonk()
     {
@@ -68,35 +70,50 @@ public class Player : MonoBehaviour
 
         Vector3 honk_position = honk.transform.localPosition;
 
-        if (Input.GetKey(KeyCode.W))
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        float speed = movement_speed * Time.deltaTime;
+
+        if (horizontal != 0)
         {
-            force.y = movement_speed * Time.fixedDeltaTime;
-            force.x = 0;
+            dir = eDirection.HORIZONTAL;
+ 
+            if (horizontal < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+                honk_position.x = -0.468f;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                honk_position.x = 0.468f;
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (vertical != 0)
         {
-            force.y = -movement_speed * Time.fixedDeltaTime;
-            force.x = 0;
+            dir = eDirection.VERTICAL;
         }
-        else if (Input.GetKey(KeyCode.A))
+
+        switch (dir)
         {
-            force.x = -movement_speed * Time.fixedDeltaTime;
-            force.y = 0;
-            GetComponent<SpriteRenderer>().flipX = false;
-            honk_position.x = -0.468f;
+            case eDirection.VERTICAL:
+            {
+                force = new Vector2(0, vertical * speed);
+                break;
+            }
+            case eDirection.HORIZONTAL:
+            {
+                force = new Vector2(horizontal * speed, 0);
+                break;
+            }
+            default:
+            {
+                force = Vector2.zero;
+                break;
+            }
         }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            force.x = movement_speed * Time.fixedDeltaTime;
-            force.y = 0;
-            GetComponent<SpriteRenderer>().flipX = true;
-            honk_position.x = 0.468f;
-        }
-        else
-        {
-            force = Vector2.zero;
-        }
-        Debug.Log(force);
+
         rb.velocity = force;
         honk.transform.localPosition = honk_position;
     }
