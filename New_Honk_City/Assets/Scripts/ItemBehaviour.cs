@@ -50,26 +50,53 @@ public class ItemBehaviour : MonoBehaviour
                 items.ItemHeld = true;
             }
         }
-
-        if (other.gameObject.tag == "NPC")
+        //if NPC collides and is chasing, take item
+        if(other.gameObject.tag == "NPC" && 
+            other.gameObject.GetComponent<NPC_StateManager>().GetState() 
+            == NPC_StateManager.State.chase)
         {
-            if (items.ItemHeld == false)
+            //if Player is holding item, stun player
+            if(items.ItemHeld)
             {
-                this.transform.parent = null;
-                this.transform.parent = hand.transform;
+                Debug.Log("stun");
+                FindObjectOfType<Player>().stunned = true;
             }
-            else
-            {
-                this.transform.parent = hand.transform;
-                cooldown = false;
-                items.ItemHeld = false;
-            }
-            transform.localPosition = new Vector2(0, 0);
+            NPCTakesItem(true);
         }
+
+        //if (other.gameObject.tag == "NPC")
+        //{
+        //    //if (items.ItemHeld == false)
+        //    //{
+        //    //    this.transform.parent = null;
+        //    //    this.transform.parent = hand.transform;
+        //    //}
+        //    //else
+        //    if (items.ItemHeld)
+        //    {
+        //        NPCTakesItem();
+        //    }
+        //    //transform.localPosition = new Vector2(0, 0);
+        //}
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         cooldown = false;
+    }
+
+    //Set properties so NPC is carrying item and player is not
+    public void NPCTakesItem(bool pickingUp)
+    {
+        items.ItemHeld = false;
+        items.NPCHeld = pickingUp;
+        cooldown = false;
+        this.transform.parent = null;
+
+        if (pickingUp)
+        {
+            this.transform.parent = hand.transform;
+            transform.localPosition = new Vector2(0, 0);
+        }
     }
 }
