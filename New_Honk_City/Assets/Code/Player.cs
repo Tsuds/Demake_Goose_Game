@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float movement_speed = 130.0f;
+    [SerializeField] private float movement_speed = 140.0f;
     [SerializeField] private AudioSource honk_sfx;
 
     enum eDirection { NONE = 0, HORIZONTAL = 1, VERTICAL = 2 }
@@ -99,12 +99,12 @@ public class Player : MonoBehaviour
         {
             case eDirection.VERTICAL:
             {
-                force = new Vector2(0, vertical * speed);
+                force = new Vector2(force.x, vertical * speed);
                 break;
             }
             case eDirection.HORIZONTAL:
             {
-                force = new Vector2(horizontal * speed, 0);
+                force = new Vector2(horizontal * speed, force.y);
                 break;
             }
             default:
