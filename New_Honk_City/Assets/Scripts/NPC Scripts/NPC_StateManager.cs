@@ -60,12 +60,15 @@ public class NPC_StateManager : MonoBehaviour
                 {
                     forward = -transform.right;
                 }
-                if (currentState != State.chase &&
+                //if item is not where it should be 
+                //and is within cone of Line of sight (angle and distance)
+                if (item.transform.position != itemStartPos &&
                     Vector3.Angle(forward, direction) < 45.0f &&
-                    FindObjectOfType<Player>().itemHeld)
+                    Vector2.Distance(transform.position, item.transform.position )< 7.0f)
                 {
                     SetState(State.chase);
                     Debug.Log("chase");
+                    
                 }
             }
         }
@@ -76,20 +79,20 @@ public class NPC_StateManager : MonoBehaviour
         if(currentState == State.idle || currentState == State.alert)
         {
             //if in honk radius set to alert
-            if (col.gameObject.name == "Honk Radius")
-            {
-                SetState(State.alert);
+            //if (col.gameObject.name == "Honk Radius")
+            //{
+            //    SetState(State.alert);
 
-                Vector3 heading = col.gameObject.transform.position - transform.position;
-                Vector3 direction = heading / heading.magnitude;
+            //    Vector3 heading = col.gameObject.transform.position - transform.position;
+            //    Vector3 direction = heading / heading.magnitude;
 
-                gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
+            //    gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
 
-                gameObject.GetComponent<NPC_Behaviours>().lastKnownLocation = col.gameObject.transform.position;
-                Debug.Log("alert");
-            }
+            //    gameObject.GetComponent<NPC_Behaviours>().lastKnownLocation = col.gameObject.transform.position;
+            //    Debug.Log("alert");
+            //}
             //if in honk collider set to flee
-            else if (col.gameObject.name == "Honk")
+            /*else*/ if (col.gameObject.name == "Honk")
             {
                 SetState(State.flee);
 
@@ -115,6 +118,10 @@ public class NPC_StateManager : MonoBehaviour
 
     public void SetState(State newState)
     {
+        if(newState == State.returnToIdle)
+        {
+            itemStartPos = item.transform.position;
+        }
         currentState = newState;
     }
 }

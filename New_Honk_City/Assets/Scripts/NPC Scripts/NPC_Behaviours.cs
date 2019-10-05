@@ -112,7 +112,8 @@ public class NPC_Behaviours : MonoBehaviour
     void ChaseBehaviour()
     {        
         transform.position = Vector2.MoveTowards(transform.position,
-        stateManager.item.transform.position, speed * Time.deltaTime);
+            stateManager.item.transform.position, 
+            speed * Time.deltaTime);
 
         Vector3 heading = stateManager.item.transform.position - transform.position;
         direction = heading / heading.magnitude;
