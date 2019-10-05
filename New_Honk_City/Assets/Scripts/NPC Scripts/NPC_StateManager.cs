@@ -14,6 +14,7 @@ public class NPC_StateManager : MonoBehaviour
     public GameObject item;
     public Vector3 itemStartPos;
     public Vector3 startPos;
+    public bool NPCHeld;
 
     //state enum so can check/change state value for appropriate
     //state scripts
@@ -44,7 +45,7 @@ public class NPC_StateManager : MonoBehaviour
         //if in their line of sight set state to chase
         if (currentState != State.chase)
         {
-            if (item.GetComponent<ItemBehaviour>().items.ItemHeld)
+            if (NPCHeld == false)
             {
                 Vector3 heading = item.transform.position - transform.position;
                 Vector3 direction = heading / heading.magnitude;
@@ -60,7 +61,8 @@ public class NPC_StateManager : MonoBehaviour
                     forward = -transform.right;
                 }
                 if (currentState != State.chase &&
-                    Vector3.Angle(forward, direction) < 45.0f)
+                    Vector3.Angle(forward, direction) < 45.0f &&
+                    FindObjectOfType<Player>().itemHeld)
                 {
                     SetState(State.chase);
                     Debug.Log("chase");

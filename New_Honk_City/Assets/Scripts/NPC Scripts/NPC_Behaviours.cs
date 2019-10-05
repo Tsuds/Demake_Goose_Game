@@ -124,10 +124,10 @@ public class NPC_Behaviours : MonoBehaviour
         //}
         
         //once NPC is holding the item, return it to it's origin, drop, return to idle
-        if(stateManager.item.GetComponent<ItemBehaviour>().items.NPCHeld)
+        if(stateManager.NPCHeld)
         {
             transform.position = Vector2.MoveTowards(transform.position,
-           stateManager.itemStartPos, speed * Time.deltaTime);
+            stateManager.itemStartPos, speed * Time.deltaTime);
 
             heading = stateManager.itemStartPos - transform.position;
             direction = heading / heading.magnitude;
