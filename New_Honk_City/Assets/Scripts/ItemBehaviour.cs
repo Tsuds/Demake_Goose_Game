@@ -6,17 +6,20 @@ public class ItemBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject beak = null;
     [SerializeField] private GameObject hand = null;
-    public ItemMaster items;
     public bool cooldown = false;
+    private NPC_StateManager NPC;
+    private Player player;
 
     void Start()
     {
+        NPC = FindObjectOfType<NPC_StateManager>();
+        player = FindObjectOfType<Player>();
         cooldown = false;
     }
 
     void Update()
     {
-        if (transform.parent == true)//(items.ItemHeld == true)
+        if (transform.parent == true && NPC.NPCHeld == false)//(items.ItemHeld == true)
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -32,7 +35,7 @@ public class ItemBehaviour : MonoBehaviour
                 this.transform.parent = null;
                 Debug.Log("Item Dropped");
                 cooldown = true;
-                items.ItemHeld = false;
+                player.itemHeld = false;
             }
         }
     }
@@ -40,14 +43,13 @@ public class ItemBehaviour : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Checks if an item is already held by player
-        if (cooldown == false //&& transform.parent == false
-            && items.ItemHeld == false && items.NPCHeld == false)
+        if (cooldown == false && player.itemHeld == false && NPC.NPCHeld == false)
         {
             if (other.gameObject.tag == "Player")
             {
                 this.transform.parent = beak.transform;
                 transform.localPosition = new Vector2(0, 0);
-                items.ItemHeld = true;
+                player.itemHeld = true;
             }
         }
         //if NPC collides and is chasing, take item
@@ -56,28 +58,14 @@ public class ItemBehaviour : MonoBehaviour
             == NPC_StateManager.State.chase)
         {
             //if Player is holding item, stun player
-            if(items.ItemHeld)
+            if(player.itemHeld)
             {
                 Debug.Log("stun");
-                FindObjectOfType<Player>().stunned = true;
+                player.stunned = true;
+                this.transform.parent = null;
             }
             NPCTakesItem(true);
         }
-
-        //if (other.gameObject.tag == "NPC")
-        //{
-        //    //if (items.ItemHeld == false)
-        //    //{
-        //    //    this.transform.parent = null;
-        //    //    this.transform.parent = hand.transform;
-        //    //}
-        //    //else
-        //    if (items.ItemHeld)
-        //    {
-        //        NPCTakesItem();
-        //    }
-        //    //transform.localPosition = new Vector2(0, 0);
-        //}
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -88,8 +76,8 @@ public class ItemBehaviour : MonoBehaviour
     //Set properties so NPC is carrying item and player is not
     public void NPCTakesItem(bool pickingUp)
     {
-        items.ItemHeld = false;
-        items.NPCHeld = pickingUp;
+        player.itemHeld = false;
+        NPC.NPCHeld = pickingUp;
         cooldown = false;
         this.transform.parent = null;
 
