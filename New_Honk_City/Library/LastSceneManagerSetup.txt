@@ -1,9 +1,5 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/NPCAggroTest.unity
-=======
 - path: Assets/Scenes/Map.unity
->>>>>>> MapCreation
   isLoaded: 1
   isActive: 1
   isSubScene: 0
