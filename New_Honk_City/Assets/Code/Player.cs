@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
         else
         {
             Movement();
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
             {
                 OnHonk();
                 if (honk_sfx)
@@ -103,22 +103,22 @@ public class Player : MonoBehaviour
         Vector3 honk_position = honk.transform.localPosition;
         Vector3 item_position = itemHolder.transform.localPosition;
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || (Input.GetAxisRaw("Vertical") == 1))
         {
             new_y += movement_speed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S) || (Input.GetAxisRaw("Vertical") == -1))
         {
             new_y -= movement_speed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) || (Input.GetAxisRaw("Horizontal") == -1))
         {
             new_x -= movement_speed * Time.deltaTime;
             GetComponent<SpriteRenderer>().flipX = false;
             honk_position.x = -0.468f;
             item_position.x = -0.468f;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) || (Input.GetAxisRaw("Horizontal") == 1))
         {
             new_x += movement_speed * Time.deltaTime;
             GetComponent<SpriteRenderer>().flipX = true;

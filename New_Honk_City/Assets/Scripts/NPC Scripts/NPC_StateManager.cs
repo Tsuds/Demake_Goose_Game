@@ -15,6 +15,7 @@ public class NPC_StateManager : MonoBehaviour
     public Vector3 itemStartPos;
     public Vector3 startPos;
     public bool NPCHeld;
+    public Animator anim;
 
     //state enum so can check/change state value for appropriate
     //state scripts
@@ -41,6 +42,7 @@ public class NPC_StateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckIfStill();
         //if NPCs item has been taken see if it is within their view
         //if in their line of sight set state to chase
         if (currentState != State.chase)
@@ -67,6 +69,7 @@ public class NPC_StateManager : MonoBehaviour
                     Vector2.Distance(transform.position, item.transform.position )< 7.0f)
                 {
                     SetState(State.chase);
+                    SetAnimBool(State.chase);
                     Debug.Log("chase");
                     
                 }
@@ -95,6 +98,7 @@ public class NPC_StateManager : MonoBehaviour
             /*else*/ if (col.gameObject.name == "Honk")
             {
                 SetState(State.flee);
+                SetAnimBool(State.flee);
 
                 Vector3 heading = transform.position - col.gameObject.transform.position;
                 Vector3 direction = heading / heading.magnitude;
@@ -123,5 +127,59 @@ public class NPC_StateManager : MonoBehaviour
             itemStartPos = item.transform.position;
         }
         currentState = newState;
+    }
+
+    void SetAnimBool(State boolState)
+    {
+        anim.SetBool("Idle", false);
+        anim.SetBool("Running", false);
+        anim.SetBool("Alert", false);
+        anim.SetBool("Fleeing", false);
+
+        switch (boolState)
+        {
+            case State.idle:
+            {
+                anim.SetBool("Idle", true);
+                break;
+            }
+
+            case State.chase:
+            {
+               anim.SetBool("Running", true);
+               break;
+            }
+
+            case State.alert:
+            {
+                anim.SetBool("Alert", true);
+                break;
+            }
+
+            case State.returnToIdle:
+            {
+                anim.SetBool("Idle", true);
+                break;
+            }
+
+            case State.flee:
+            {
+                anim.SetBool("Fleeing", true);
+                break;
+            }
+        }
+    }
+
+    void CheckIfStill()
+    {
+        if (GetComponent<Rigidbody2D>().IsSleeping() && anim.GetBool("Alert") == false)
+        {
+            SetAnimBool(State.idle);
+        }
+
+        else if (anim.GetBool("Alert") == false && anim.GetBool("Fleeing") == false)
+        {
+            SetAnimBool(State.chase);
+        }
     }
 }

@@ -1239,6 +1239,7 @@ GameObject:
   - component: {fileID: 2043448010}
   - component: {fileID: 2043448014}
   - component: {fileID: 2043448009}
+  - component: {fileID: 2043448015}
   m_Layer: 0
   m_Name: NPC_test
   m_TagString: NPC
@@ -1283,6 +1284,7 @@ MonoBehaviour:
   itemStartPos: {x: 0, y: 0, z: 0}
   startPos: {x: 0, y: 0, z: 0}
   NPCHeld: 0
+  anim: {fileID: 2043448015}
   returnDistance: 10
 --- !u!212 &2043448011
 SpriteRenderer:
@@ -1394,3 +1396,22 @@ MonoBehaviour:
   - {fileID: 1574527511}
   - {fileID: 589840781}
   startWaitTime: 2
+--- !u!95 &2043448015
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043448008}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 144ce4cae30d3d44b9517c10b10f5fcc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
