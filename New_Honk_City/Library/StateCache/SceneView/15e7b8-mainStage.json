@@ -1,9 +1,15 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":0.08855019509792328,"y":-0.47511881589889529,"z":-11.845703125},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":12.381674766540528,"orthographic":true}
 =======
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":-0.12093406915664673,"y":-0.10245392471551895,"z":-2.625},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":12.590951919555664,"orthographic":true}
 >>>>>>> Item_Management
 =======
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":0.44668662548065188,"y":-0.09786549210548401,"z":-1.2580835819244385},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":1.1769912242889405,"orthographic":true}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":2.473789691925049,"y":-0.12242722511291504,"z":-32.591796875},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":14.888874053955079,"orthographic":true}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":-22.490327835083009,"y":-8.116291999816895,"z":-12.277732849121094},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":52.075035095214847,"orthographic":true}
+>>>>>>> MapCreation
 >>>>>>> master

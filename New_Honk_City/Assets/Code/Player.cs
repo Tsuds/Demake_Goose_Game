@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float movement_speed = 4.0f;
+    [SerializeField] private float movement_speed = 130.0f;
     [SerializeField] private AudioSource honk_sfx;
 
     private GameObject honk;
@@ -89,6 +89,11 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void FixedUpdate()
+    {
+        Movement();
+    }
+
     public void OnHonk()
     {
         honk.SetActive(true);
@@ -97,35 +102,44 @@ public class Player : MonoBehaviour
 
     private void Movement()
     {
-        float new_x = transform.position.x;
-        float new_y = transform.position.y;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Vector2 force = rb.velocity;
 
         Vector3 honk_position = honk.transform.localPosition;
         Vector3 item_position = itemHolder.transform.localPosition;
 
         if (Input.GetKey(KeyCode.W) || (Input.GetAxisRaw("Vertical") == 1))
         {
-            new_y += movement_speed * Time.deltaTime;
+            force.y = movement_speed * Time.fixedDeltaTime;
+            force.x = 0;
         }
         else if (Input.GetKey(KeyCode.S) || (Input.GetAxisRaw("Vertical") == -1))
         {
-            new_y -= movement_speed * Time.deltaTime;
+            force.y = -movement_speed * Time.fixedDeltaTime;
+            force.x = 0;
         }
         else if (Input.GetKey(KeyCode.A) || (Input.GetAxisRaw("Horizontal") == -1))
         {
-            new_x -= movement_speed * Time.deltaTime;
+            force.x = -movement_speed * Time.fixedDeltaTime;
+            force.y = 0;
             GetComponent<SpriteRenderer>().flipX = false;
             honk_position.x = -0.468f;
             item_position.x = -0.468f;
         }
         else if (Input.GetKey(KeyCode.D) || (Input.GetAxisRaw("Horizontal") == 1))
         {
-            new_x += movement_speed * Time.deltaTime;
+            force.x = movement_speed * Time.fixedDeltaTime;
+            force.y = 0;
             GetComponent<SpriteRenderer>().flipX = true;
             honk_position.x = 0.468f;
             item_position.x = 0.468f;
         }
-        transform.position = new Vector3(new_x, new_y, transform.position.z);
+        else
+        {
+            force = Vector2.zero;
+        }
+        Debug.Log(force);
+        rb.velocity = force;
         honk.transform.localPosition = honk_position;
         itemHolder.transform.localPosition = item_position;
     }
