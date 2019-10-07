@@ -203,7 +203,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1598917631
+--- !u!1 &552468074
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,9 +211,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1598917634}
-  - component: {fileID: 1598917633}
-  - component: {fileID: 1598917632}
+  - component: {fileID: 552468077}
+  - component: {fileID: 552468076}
+  - component: {fileID: 552468075}
   m_Layer: 0
   m_Name: DGGLogo
   m_TagString: Untagged
@@ -221,29 +221,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1598917632
+--- !u!114 &552468075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1598917631}
+  m_GameObject: {fileID: 552468074}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf9f0125730e0854a99e99c36cd6f59a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onTitleScreen: 1
-  titleScreen: {fileID: 1598917631}
+  titleScreen: {fileID: 552468074}
   player: {fileID: 1884153779}
   level: {fileID: 0}
---- !u!212 &1598917633
+--- !u!212 &552468076
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1598917631}
+  m_GameObject: {fileID: 552468074}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -275,7 +275,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7e6d811f6d7b7994da0001b0761c7ea4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a81afc9929d170f45b0b28551d20acac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -286,16 +286,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1598917634
+--- !u!4 &552468077
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1598917631}
+  m_GameObject: {fileID: 552468074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.23, y: 0.11, z: 0}
-  m_LocalScale: {x: 2.38, y: 2.545, z: 1}
+  m_LocalPosition: {x: 0.27, y: 0.04, z: 0}
+  m_LocalScale: {x: 2.64, y: 2.64, z: 2.64}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
