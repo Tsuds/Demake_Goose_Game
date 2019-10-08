@@ -71,9 +71,6 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>F:/3rd Year/CGD (Commercial Games Development)/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>F:/3rd Year/CGD (Commercial Games Development)/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>F:/3rd Year/CGD (Commercial Games Development)/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
