@@ -113,58 +113,58 @@ public class Player : MonoBehaviour
 
         float speed = movement_speed * Time.deltaTime;
 
-        if (horizontal != 0)
-        {
-            if (horizontal < 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = false;
-                honk_position.x = -0.468f;
-            }
-            else
-            {
-                GetComponent<SpriteRenderer>().flipX = true;
-                honk_position.x = 0.468f;
-            }
-            if (vertical == 0)
-            {
-                dir = direction.HORIZONTAL;
-            }
-            else
-            {
-                dir = direction.DIAGONAL;
-            }
+        if (horizontal != 0)
+        {
+            if (horizontal < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+                honk_position.x = -0.468f;            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                honk_position.x = 0.468f;
+            }
+            if (vertical == 0)
+            {
+                dir = direction.HORIZONTAL;
+            }
+            else
+            {
+                dir = direction.DIAGONAL;
+            }
         }
-        else if(vertical != 0)
-        {
-            dir = direction.VERTICAL;
+        else if(vertical != 0)
+        {
+            dir = direction.VERTICAL;
         }
-        if(horizontal == 0 && vertical == 0)
-        {
-            dir = direction.NONE;
-        }
-        
-        switch(dir)
-        {
-            case direction.HORIZONTAL:
-            {
-                force = new Vector2(horizontal * speed, 0);
-                break;
-            }
-            case direction.VERTICAL:
-            {
-                force = new Vector2(0, vertical * speed);
-                break;
-            }
-            case direction.DIAGONAL:
-            {
-                force = new Vector2(horizontal * speed, vertical * speed);
-                break;
-            }
-            default:
-            {
-                force = Vector2.zero;
-                break;
-            }
+
+        if(horizontal == 0 && vertical == 0)
+        {
+            dir = direction.NONE;
+        }        
+
+        switch(dir)
+        {
+            case direction.HORIZONTAL:
+            {
+                force = new Vector2(horizontal * speed, 0);
+                break;
+            }
+            case direction.VERTICAL:
+            {
+                force = new Vector2(0, vertical * speed);
+                break;
+            }
+            case direction.DIAGONAL:
+            {
+                force = new Vector2(horizontal * speed, vertical * speed);
+                break;
+            }
+            default:
+            {
+                force = Vector2.zero;
+                break;
+            }
         }
 
         rb.velocity = force;
