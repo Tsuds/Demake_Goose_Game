@@ -62,12 +62,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Assets\Code\CameraFollow.cs" />
     <Compile Include="Assets\Code\GameHandler.cs" />
     <Compile Include="Assets\Code\Player.cs" />
     <Compile Include="Assets\Scripts\ItemBehaviour.cs" />
     <Compile Include="Assets\Scripts\NPC Scripts\NPC_Behaviours.cs" />
     <Compile Include="Assets\Scripts\NPC Scripts\NPC_StateManager.cs" />
+=======
+    <Compile Include="Assets\Code\Player.cs" />
+    <Compile Include="Assets\Code\TitleScreen.cs" />
+>>>>>>> TitleScreen
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
