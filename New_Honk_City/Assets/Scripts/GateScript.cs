@@ -6,12 +6,18 @@ public class GateScript : MonoBehaviour
 {
 
     public bool Opened;
-
+    public bool Clockwise;
+    private int rotate;
 
     // Start is called before the first frame update
     void Start()
     {
         Opened = false;
+
+        if (Clockwise)
+            rotate = -90;
+        else
+            rotate = 90;
     }
     
     // Use an invisible sprite as the rotation and then a solid sprite as the gate
@@ -22,7 +28,7 @@ public class GateScript : MonoBehaviour
         if (other.gameObject.tag == "Key" && Opened == false)
         {
             Debug.Log("Open");
-            transform.Rotate(Vector3.forward * -90);
+            transform.Rotate(Vector3.forward * rotate);
             Opened = true;
             other.gameObject.SetActive(false);
         }

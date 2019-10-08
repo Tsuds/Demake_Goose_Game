@@ -721,6 +721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Opened: 0
+  Clockwise: 1
 --- !u!212 &615481949
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1255,12 +1256,12 @@ PrefabInstance:
     - target: {fileID: 1825391990234222918, guid: e0656ef54354cb9479d738eda21e2715,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.69
+      value: 3.64
       objectReference: {fileID: 0}
     - target: {fileID: 1825391990234222918, guid: e0656ef54354cb9479d738eda21e2715,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.31
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 1825391990234222918, guid: e0656ef54354cb9479d738eda21e2715,
         type: 3}
@@ -1567,6 +1568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 1705406754}
+  honk: {fileID: 1977860295}
   itemStartPos: {x: 0, y: 0, z: 0}
   startPos: {x: 0, y: 0, z: 0}
   NPCHeld: 0
