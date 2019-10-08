@@ -10,7 +10,6 @@ public class NPC_Behaviours : MonoBehaviour
     public Vector3 lastKnownLocation;
 
     public float speed;
-    public bool randomPatroll;
 
     public Transform[] points;
     private int destPoint = 0;
@@ -22,7 +21,7 @@ public class NPC_Behaviours : MonoBehaviour
 
     void Start()
     {
-        //destPoint = Random.Range(0, points.Length);
+        destPoint = Random.Range(0, points.Length);
         stateManager = gameObject.GetComponent<NPC_StateManager>();
     }
 
@@ -68,30 +67,19 @@ public class NPC_Behaviours : MonoBehaviour
 
         if (Vector2.Distance(transform.position, points[destPoint].position) < 0.2f)
         {
+            newPoint = false;
             if (waitTime <= 0)
             {
-                if (randomPatroll)
+                while (!newPoint)
                 {
-                    newPoint = false;
+                    newDest = Random.Range(0, points.Length);
+                    if (newDest != destPoint)
+                    {
+                        destPoint = newDest;
+                        newPoint = true;
+                    }
+                }
 
-                    while (!newPoint)
-                    {
-                        newDest = Random.Range(0, points.Length);
-                        if (newDest != destPoint)
-                        {
-                            destPoint = newDest;
-                            newPoint = true;
-                        }
-                    }
-                }
-                else
-                {
-                    destPoint++;
-                    if (destPoint == points.Length)
-                    {
-                        destPoint = 0;
-                    }
-                }
                 waitTime = startWaitTime;
             }
             else
