@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -102,7 +102,7 @@ public class NPC_StateManager : MonoBehaviour
                 //and is within cone of Line of sight (angle and distance)
                 if (Vector2.Distance(item.transform.position, itemStartPos) > 1 &&
                     Vector3.Angle(forward, direction) < 45.0f &&
-                    Vector2.Distance(transform.position, item.transform.position )< 7.0f)
+                    Vector2.Distance(transform.position, item.transform.position )< 1.8f)
                 {
                     SetState(State.chase);
                     SetAnimBool(State.chase);                
@@ -122,7 +122,7 @@ public class NPC_StateManager : MonoBehaviour
                 if (hit.collider.gameObject.tag != "Player" && hit.collider.gameObject.tag != "Item"
                     && hit.collider.gameObject.tag != "Honk")
                 {
-                    //Debug.Log(hit.collider.gameObject.tag);
+                    //Debug.Log("HIT: " + hit.collider.gameObject.name);
                     SetState(State.alert);
                     SetAnimBool(State.alert);
                 }
