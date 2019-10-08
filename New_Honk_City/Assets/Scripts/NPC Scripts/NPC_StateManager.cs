@@ -40,6 +40,10 @@ public class NPC_StateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 pos = gameObject.transform.position;
+        pos.z = -2.0f;
+        gameObject.transform.position = pos;
+
         CheckIfStill();
 
         if(honk.activeSelf)

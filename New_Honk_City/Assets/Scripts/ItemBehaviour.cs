@@ -86,5 +86,8 @@ public class ItemBehaviour : MonoBehaviour
             this.transform.parent = hand.transform;
             transform.localPosition = new Vector2(0, 0);
         }
+        Vector3 pos = gameObject.transform.position;
+        pos.z = -2.0f;
+        gameObject.transform.position = pos;
     }
 }
