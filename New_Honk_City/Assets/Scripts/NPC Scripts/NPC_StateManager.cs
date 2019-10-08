@@ -12,6 +12,7 @@ public class NPC_StateManager : MonoBehaviour
     //How I planned to have items associated with NPCs
     //drag item into public variable
     public GameObject item;
+    public GameObject honk;
     public Vector3 itemStartPos;
     public Vector3 startPos;
     public bool NPCHeld;
@@ -40,6 +41,39 @@ public class NPC_StateManager : MonoBehaviour
     void Update()
     {
         CheckIfStill();
+
+        if(honk.activeSelf)
+        {
+            if (currentState == State.idle || currentState == State.alert)
+            {
+                //if in honk radius set to alert
+                if (currentState != State.alert && 
+                    Vector2.Distance(transform.position, honk.transform.position) <= 2.5f &&
+                    Vector2.Distance(transform.position, honk.transform.position) > 0.5f)
+                {
+                    SetState(State.alert);
+                    SetAnimBool(State.alert);
+
+                    Vector3 heading = honk.transform.position - transform.position;
+                    Vector3 direction = heading / heading.magnitude;
+
+                    gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
+
+                    gameObject.GetComponent<NPC_Behaviours>().lastKnownLocation = honk.transform.position;
+                }
+                //if in honk collider set to flee
+                else if (Vector2.Distance(transform.position, honk.transform.position) <= 0.5f)
+                {
+                    SetState(State.flee);
+                    SetAnimBool(State.flee);
+
+                    Vector3 heading = transform.position - honk.transform.position;
+                    Vector3 direction = heading / heading.magnitude;
+
+                    gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
+                }
+            }
+        }
 
         //if NPCs item has been taken see if it is within their view
         //if in their line of sight set state to chase
@@ -94,34 +128,6 @@ public class NPC_StateManager : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(currentState == State.idle)
-        {
-            //if in honk radius set to alert
-            if (col.gameObject.name == "Honk Radius")
-            {
-                SetState(State.alert);
-                SetAnimBool(State.alert);
-
-                Vector3 heading = col.gameObject.transform.position - transform.position;
-                Vector3 direction = heading / heading.magnitude;
-
-                gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
-
-                gameObject.GetComponent<NPC_Behaviours>().lastKnownLocation = col.gameObject.transform.position;
-            }
-            //if in honk collider set to flee
-            else if (col.gameObject.name == "Honk")
-            {
-                SetState(State.flee);
-                SetAnimBool(State.flee);
-
-                Vector3 heading = transform.position - col.gameObject.transform.position;
-                Vector3 direction = heading / heading.magnitude;
-
-                gameObject.GetComponent<NPC_Behaviours>().SetDirection(direction);
-            }
-        }
-
         //if chasing player and collides, stun and return
         if(currentState == State.chase && col.gameObject.tag == "Player" &&
             col.gameObject.GetComponent<Player>().itemHeld)
@@ -200,7 +206,7 @@ public class NPC_StateManager : MonoBehaviour
             SetAnimBool(State.idle);
         }
 
-        else if (anim.GetBool("Alert") == false && currentState != State.flee)
+        else if (currentState != State.alert && currentState != State.flee)
         {
             SetAnimBool(State.chase);
         }
