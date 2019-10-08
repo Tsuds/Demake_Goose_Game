@@ -6,6 +6,7 @@ public class NPC_Behaviours : MonoBehaviour
 
     private Vector3 direction;
     private float timer = 1.0f;
+    private float alertTimer = 2.0f;
 
     public Vector3 lastKnownLocation;
 
@@ -16,13 +17,14 @@ public class NPC_Behaviours : MonoBehaviour
     private int newDest;
     private bool newPoint = false;
 
-    private float waitTime;
     public float startWaitTime;
+    private float waitTime;
 
     void Start()
     {
         destPoint = Random.Range(0, points.Length);
         stateManager = gameObject.GetComponent<NPC_StateManager>();
+        waitTime = startWaitTime;
     }
 
     void Update()
@@ -91,7 +93,13 @@ public class NPC_Behaviours : MonoBehaviour
 
     void AlertBehaviour()
     {
+        alertTimer -= Time.deltaTime;
 
+        if(alertTimer <= 0.0f)
+        {
+            alertTimer = 2.0f;
+            stateManager.SetState(NPC_StateManager.State.returnToIdle);
+        }
     }
 
     //move in the flee direction (away from player) for set time
@@ -103,7 +111,7 @@ public class NPC_Behaviours : MonoBehaviour
 
         if(timer <= 0.0f)
         {
-            timer = 1.5f;
+            timer = 1.0f;
             stateManager.SetState(NPC_StateManager.State.idle);
         }
     }
@@ -118,14 +126,8 @@ public class NPC_Behaviours : MonoBehaviour
         Vector3 heading = stateManager.item.transform.position - transform.position;
         direction = heading / heading.magnitude;
 
-        //if(Vector2.Distance(stateManager.itemStartPos, transform.position) < 
-        //    stateManager.returnDistance)
-        //{
-        //    stateManager.SetState(NPC_StateManager.State.alert);
-        //}
-        
         //once NPC is holding the item, return it to it's origin, drop, return to idle
-        if(stateManager.NPCHeld)
+        if (stateManager.NPCHeld)
         {
             transform.position = Vector2.MoveTowards(transform.position,
             stateManager.itemStartPos, speed * Time.deltaTime);
@@ -139,7 +141,6 @@ public class NPC_Behaviours : MonoBehaviour
                 stateManager.SetState(NPC_StateManager.State.returnToIdle);
             }
         }
-
     }
 
     //return to origin point and change state to idle
