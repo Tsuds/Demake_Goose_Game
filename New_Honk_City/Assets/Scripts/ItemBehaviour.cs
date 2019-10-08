@@ -55,7 +55,7 @@ public class ItemBehaviour : MonoBehaviour
         //if NPC collides and is chasing, take item
         if(other.gameObject.tag == "NPC" && 
             other.gameObject.GetComponent<NPC_StateManager>().GetState() 
-            == NPC_StateManager.State.chase)
+            == NPC_StateManager.State.chase && other.gameObject.GetComponent<NPC_StateManager>().item == this.gameObject)
         {
             //if Player is holding item, stun player
             if(player.itemHeld)
