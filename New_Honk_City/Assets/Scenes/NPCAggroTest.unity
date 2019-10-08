@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7439dcc8a5d7fb34e858817cca8a95a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement_speed: 4
+  movement_speed: 100
   honk_sfx: {fileID: 0}
   itemHolder: {fileID: 33934079}
   itemHeld: 0

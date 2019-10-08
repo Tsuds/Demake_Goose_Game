@@ -118,11 +118,14 @@ public class Player : MonoBehaviour
             if (horizontal < 0)
             {
                 GetComponent<SpriteRenderer>().flipX = false;
-                honk_position.x = -0.468f;            }
+                honk_position.x = -0.468f;
+                item_position.x = -0.468f;
+            }
             else
             {
                 GetComponent<SpriteRenderer>().flipX = true;
                 honk_position.x = 0.468f;
+                item_position.x = 0.468f;
             }
             if (vertical == 0)
             {
