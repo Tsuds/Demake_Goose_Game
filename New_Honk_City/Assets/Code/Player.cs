@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float movement_speed = 130.0f;
+    [SerializeField] private float movement_speed = 140.0f;
     [SerializeField] private AudioSource honk_sfx;
 
+    private enum direction { NONE = 0, VERTICAL = 1, HORIZONTAL = 2, DIAGONAL = 3 }
+
+    private direction dir = direction.NONE;
+
     private GameObject honk;
+    public GameObject itemHolder;
 
     private float honk_timer = 0.0f;
     private bool has_honked = false;
+
+    public bool itemHeld = false;
+
+    private float stunTimer = 1.5f;
+    public bool stunned = false;
+
+    private GameObject stunEffect;
 
     private void Awake()
     {
@@ -21,38 +33,65 @@ public class Player : MonoBehaviour
                 honk = child.gameObject;
                 honk.SetActive(false);
             }
+            else if (child.name == "StunEffect")
+            {
+                stunEffect = child.gameObject;
+                stunEffect.SetActive(false);
+            }
         }
     }
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+    {        
+        if (stunned)
         {
-            OnHonk();
-            if (honk_sfx)
+            if(!stunEffect.activeSelf)
             {
-                honk_sfx.Play();
+                if (GetComponent<SpriteRenderer>().flipX)
+                {
+                    stunEffect.transform.localPosition = new Vector2(0.115f,0.5f);
+                }
+                else
+                {
+                    stunEffect.transform.localPosition = new Vector2(-0.115f, 0.5f);
+                }
+                stunEffect.SetActive(true);
             }
-            has_honked = true;
-        }
-        if(has_honked)
-        {
-            honk_timer += Time.deltaTime;
-            if(honk_timer > 0.5f)
+            stunTimer -= Time.deltaTime;
+            if (stunTimer <= 0.0f)
             {
-                honk_timer = 0.0f;
-                honk.SetActive(false);
-                has_honked = false;
+                stunned = false;
+                stunTimer = 1.5f;
+                stunEffect.SetActive(false);
             }
         }
-        if(honk.activeInHierarchy)
+        else
         {
-            SpriteRenderer this_sr = GetComponent<SpriteRenderer>();
-            honk.GetComponent<SpriteRenderer>().flipX = this_sr.flipX;
+            Movement();
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
+            {
+                OnHonk();
+                if (honk_sfx)
+                {
+                    honk_sfx.Play();
+                }
+                has_honked = true;
+            }
+            if (has_honked)
+            {
+                honk_timer += Time.deltaTime;
+                if (honk_timer > 0.5f)
+                {
+                    honk_timer = 0.0f;
+                    honk.SetActive(false);
+                    has_honked = false;
+                }
+            }
+            if (honk.activeInHierarchy)
+            {
+                SpriteRenderer this_sr = GetComponent<SpriteRenderer>();
+                honk.GetComponent<SpriteRenderer>().flipX = this_sr.flipX;
+            }
         }
-    }
-    private void FixedUpdate()
-    {
-        Movement();
     }
 
     public void OnHonk()
@@ -67,38 +106,72 @@ public class Player : MonoBehaviour
         Vector2 force = rb.velocity;
 
         Vector3 honk_position = honk.transform.localPosition;
+        Vector3 item_position = itemHolder.transform.localPosition;
 
-        if (Input.GetKey(KeyCode.W))
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        float speed = movement_speed * Time.deltaTime;
+
+        if (horizontal != 0)
         {
-            force.y = movement_speed * Time.fixedDeltaTime;
-            force.x = 0;
+            if (horizontal < 0)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+                honk_position.x = -0.468f;
+                item_position.x = -0.468f;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+                honk_position.x = 0.468f;
+                item_position.x = 0.468f;
+            }
+            if (vertical == 0)
+            {
+                dir = direction.HORIZONTAL;
+            }
+            else
+            {
+                dir = direction.DIAGONAL;
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if(vertical != 0)
         {
-            force.y = -movement_speed * Time.fixedDeltaTime;
-            force.x = 0;
+            dir = direction.VERTICAL;
         }
-        else if (Input.GetKey(KeyCode.A))
+
+        if(horizontal == 0 && vertical == 0)
         {
-            force.x = -movement_speed * Time.fixedDeltaTime;
-            force.y = 0;
-            GetComponent<SpriteRenderer>().flipX = false;
-            honk_position.x = -0.468f;
-        }
-        else if (Input.GetKey(KeyCode.D))
+            dir = direction.NONE;
+        }        
+
+        switch(dir)
         {
-            force.x = movement_speed * Time.fixedDeltaTime;
-            force.y = 0;
-            GetComponent<SpriteRenderer>().flipX = true;
-            honk_position.x = 0.468f;
+            case direction.HORIZONTAL:
+            {
+                force = new Vector2(horizontal * speed, 0);
+                break;
+            }
+            case direction.VERTICAL:
+            {
+                force = new Vector2(0, vertical * speed);
+                break;
+            }
+            case direction.DIAGONAL:
+            {
+                force = new Vector2(horizontal * speed, vertical * speed);
+                break;
+            }
+            default:
+            {
+                force = Vector2.zero;
+                break;
+            }
         }
-        else
-        {
-            force = Vector2.zero;
-        }
-        Debug.Log(force);
+
         rb.velocity = force;
         honk.transform.localPosition = honk_position;
+        itemHolder.transform.localPosition = item_position;
     }
-
 }
