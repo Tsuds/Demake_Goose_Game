@@ -5,11 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float movement_speed = 140.0f;
-    [SerializeField] private AudioSource honk_sfx;
-
-    enum eDirection { NONE = 0, HORIZONTAL = 1, VERTICAL = 2 }
+    [SerializeField] private AudioSource honk_sfx;
 
-    private eDirection dir = eDirection.NONE;
+    private enum direction { NONE = 0, VERTICAL = 1, HORIZONTAL = 2, DIAGONAL = 3 }
+
+    private direction dir = direction.NONE;
 
     private GameObject honk;
     public GameObject itemHolder;
@@ -115,8 +115,6 @@ public class Player : MonoBehaviour
 
         if (horizontal != 0)
         {
-            dir = eDirection.HORIZONTAL;
- 
             if (horizontal < 0)
             {
                 GetComponent<SpriteRenderer>().flipX = false;
@@ -127,22 +125,39 @@ public class Player : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = true;
                 honk_position.x = 0.468f;
             }
-        }
-        else if (vertical != 0)
-        {
-            dir = eDirection.VERTICAL;
-        }
-
-        switch (dir)
-        {
-            case eDirection.VERTICAL:
+            if (vertical == 0)
             {
-                force = new Vector2(force.x, vertical * speed);
+                dir = direction.HORIZONTAL;
+            }
+            else
+            {
+                dir = direction.DIAGONAL;
+            }
+        }
+        else if(vertical != 0)
+        {
+            dir = direction.VERTICAL;
+        }
+        if(horizontal == 0 && vertical == 0)
+        {
+            dir = direction.NONE;
+        }
+        
+        switch(dir)
+        {
+            case direction.HORIZONTAL:
+            {
+                force = new Vector2(horizontal * speed, 0);
                 break;
             }
-            case eDirection.HORIZONTAL:
+            case direction.VERTICAL:
             {
-                force = new Vector2(horizontal * speed, force.y);
+                force = new Vector2(0, vertical * speed);
+                break;
+            }
+            case direction.DIAGONAL:
+            {
+                force = new Vector2(horizontal * speed, vertical * speed);
                 break;
             }
             default:
