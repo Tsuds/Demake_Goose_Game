@@ -7,12 +7,11 @@ public class ItemBehaviour : MonoBehaviour
     [SerializeField] private GameObject beak = null;
     [SerializeField] private GameObject hand = null;
     public bool cooldown = false;
-    private NPC_StateManager NPC;
+    public NPC_StateManager NPC;
     private Player player;
 
     void Start()
     {
-        NPC = FindObjectOfType<NPC_StateManager>();
         player = FindObjectOfType<Player>();
         cooldown = false;
     }

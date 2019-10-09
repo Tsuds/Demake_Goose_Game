@@ -8,6 +8,7 @@ public class GateScript : MonoBehaviour
     public bool Opened;
     public bool Clockwise;
     private int rotate;
+    public GameObject Key;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +26,12 @@ public class GateScript : MonoBehaviour
     // as a key to Key
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Key" && Opened == false)
+        if (other.gameObject == Key && Opened == false)
         {
             Debug.Log("Open");
             transform.Rotate(Vector3.forward * rotate);
             Opened = true;
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
         }
     }
 }

@@ -78,9 +78,12 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>C:/Users/User/Desktop/CGD/Jam 1/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+<<<<<<< HEAD
     <Reference Include="Unity.InputSystem">
       <HintPath>C:/Users/User/Desktop/CGD/Jam 1/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.InputSystem.dll</HintPath>
     </Reference>
+=======
+>>>>>>> FinishedMAP
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/User/Desktop/CGD/Jam 1/Demake_Goose_Game/New_Honk_City/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
