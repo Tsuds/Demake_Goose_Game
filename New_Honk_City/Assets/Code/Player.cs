@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     {        
         if (stunned)
         {
-            if (!stunEffect.activeSelf)
+            if(!stunEffect.activeSelf)
             {
                 if (GetComponent<SpriteRenderer>().flipX)
                 {
@@ -55,7 +55,6 @@ public class Player : MonoBehaviour
                     stunEffect.transform.localPosition = new Vector2(-0.115f, 0.5f);
                 }
                 stunEffect.SetActive(true);
-                gameObject.GetComponent<Rigidbody2D>().Sleep();
             }
             stunTimer -= Time.deltaTime;
             if (stunTimer <= 0.0f)
@@ -63,7 +62,6 @@ public class Player : MonoBehaviour
                 stunned = false;
                 stunTimer = 1.5f;
                 stunEffect.SetActive(false);
-                gameObject.GetComponent<Rigidbody2D>().WakeUp();
             }
         }
         else

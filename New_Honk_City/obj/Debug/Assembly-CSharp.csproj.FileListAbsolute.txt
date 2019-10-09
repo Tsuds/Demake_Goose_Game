@@ -391,6 +391,7 @@ E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\System.Xml
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.2D.Sprite.Editor.dll
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.2D.Tilemap.Editor.dll
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
+E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.InputSystem.dll
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.Rider.Editor.dll
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.TextMeshPro.dll
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
@@ -469,6 +470,7 @@ E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\UnityEngin
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\UnityEditor.xml
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.Timeline.Editor.pdb
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.VSCode.Editor.pdb
+E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.InputSystem.pdb
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\UnityEngine.UI.pdb
 E:\YEAR 3 Uni work\CGD\Demake_Goose_Game\New_Honk_City\Temp\bin\Debug\Unity.Timeline.pdb
