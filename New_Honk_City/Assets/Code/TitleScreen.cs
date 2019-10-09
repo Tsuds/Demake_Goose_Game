@@ -13,7 +13,7 @@ public class TitleScreen : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && onTitleScreen)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0)) && onTitleScreen)
         {
             onTitleScreen = false;
             titleScreen.SetActive(false);

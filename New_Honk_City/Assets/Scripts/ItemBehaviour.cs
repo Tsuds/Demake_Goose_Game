@@ -29,7 +29,7 @@ public class ItemBehaviour : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
             {
                 this.transform.parent = null;
                 Debug.Log("Item Dropped");

@@ -176,4 +176,12 @@ public class Player : MonoBehaviour
         honk.transform.localPosition = honk_position;
         itemHolder.transform.localPosition = item_position;
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "End")
+        {
+            Application.Quit();
+        }
+    }
 }
