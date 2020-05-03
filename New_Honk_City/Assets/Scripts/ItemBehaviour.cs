@@ -8,17 +8,19 @@ public class ItemBehaviour : MonoBehaviour
     [SerializeField] private GameObject hand = null;
     public bool cooldown = false;
     public NPC_StateManager NPC;
-    private Player player;
+    public Player player;
+	private GameObject startParent;
 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        //player = FindObjectOfType<Player>();
         cooldown = false;
+		startParent = transform.parent.gameObject;
     }
 
     void Update()
     {
-        if (transform.parent == true && NPC.NPCHeld == false)//(items.ItemHeld == true)
+        if (transform.parent.transform != startParent.transform && NPC.NPCHeld == false)
         {
             if (Input.GetKey(KeyCode.A))
             {
@@ -29,9 +31,9 @@ public class ItemBehaviour : MonoBehaviour
                 GetComponent<SpriteRenderer>().flipX = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton0))
+            if (Input.GetKeyDown(KeyCode.Space)&& transform.parent.tag == "Player")// && player.itemHeld)
             {
-                this.transform.parent = null;
+                transform.parent = startParent.transform;
                 Debug.Log("Item Dropped");
                 cooldown = true;
                 player.itemHeld = false;
@@ -42,10 +44,11 @@ public class ItemBehaviour : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Checks if an item is already held by player
-        if (cooldown == false && player.itemHeld == false && NPC.NPCHeld == false)
+        if (!cooldown && !player.itemHeld && !NPC.NPCHeld)
         {
             if (other.gameObject.tag == "Player")
             {
+				Debug.Log("Picked up ", gameObject);
                 this.transform.parent = beak.transform;
                 transform.localPosition = new Vector2(0, 0);
                 player.itemHeld = true;

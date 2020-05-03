@@ -9,6 +9,7 @@ public class TitleScreen : MonoBehaviour
     public GameObject titleScreen;
     public GameObject player;
     public GameObject level;
+    public GameObject items;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -19,6 +20,7 @@ public class TitleScreen : MonoBehaviour
             titleScreen.SetActive(false);
             player.SetActive(true);
             level.SetActive(true);
+            items.SetActive(true);
         }
 
         if (onTitleScreen)
@@ -26,6 +28,7 @@ public class TitleScreen : MonoBehaviour
             titleScreen.SetActive(true);
             player.SetActive(false);
             level.SetActive(false);
+            items.SetActive(false);
         }
     }
 }
