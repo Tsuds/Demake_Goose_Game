@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
-    public CameraFollow cameraFollow;
-    public Transform playerTransform;    
+	private int targetFrameRate = 60;
 
-    void Start()
-    {
-        cameraFollow.Setup(() => playerTransform.position);        
-    }
+	private void Start()
+	{
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = targetFrameRate;
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			Application.Quit();
+		}
+	}
 
 }

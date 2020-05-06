@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\GateScript.cs" />
     <Compile Include="Assets\Scripts\IgnoreCollisions.cs" />
     <Compile Include="Assets\Scripts\ItemBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Manager.cs" />
     <Compile Include="Assets\Scripts\NPC Scripts\NPC_Behaviours.cs" />
     <Compile Include="Assets\Scripts\NPC Scripts\NPC_StateManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
